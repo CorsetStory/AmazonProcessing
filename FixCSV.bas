@@ -9,13 +9,17 @@ Attribute Main.VB_ProcData.VB_Invoke_Func = "I\n14"
     tempFile = "amazon_temp_file.txt"
     fn = GetFileName(ActiveWorkbook.Path)
     StripFile fn, tempFile
-    ImportFile tempFile
+    'ImportFile tempFile
+    Sheets("MageData").Select
+    For Each myQT In ActiveSheet.QueryTables
+        myQT.Refresh
+    Next
     
 End Sub
 
 Function GetFileName(PathName) As String
 
-sPath = "Macintosh HD:Users:Tim:Downloads"
+sPath = PathName
 'Path = sPatch
 
 If sPath = vbNullString Then
@@ -61,11 +65,12 @@ Dim Indata As String * 1
     
 End Sub
 
-Sub ImportFile(Filename)
-Attribute ImportFile.VB_ProcData.VB_Invoke_Func = " \n14"
+Sub ReImportFile(Filename)
+Attribute ReImportFile.VB_ProcData.VB_Invoke_Func = " \n14"
 '
 ' Macro1 Macro
 '
+' Only need this if data connection is broken?
 
 
     Sheets("MageData").Select
