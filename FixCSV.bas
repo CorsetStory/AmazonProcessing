@@ -1,7 +1,7 @@
 Attribute VB_Name = "Module1"
 Sub Main()
-Attribute Main.VB_Description = "Import Amazon Data Stripping Out LF"
-Attribute Main.VB_ProcData.VB_Invoke_Func = "I\n14"
+'Attribute Main.VB_Description = "Import Amazon Data Stripping Out LF"
+'Attribute Main.VB_ProcData.VB_Invoke_Func = "I\n14"
     
     Dim fn As String
     Dim tempFile As String
@@ -66,14 +66,14 @@ Dim Indata As String * 1
 End Sub
 
 Sub ReImportFile(Filename)
-Attribute ReImportFile.VB_ProcData.VB_Invoke_Func = " \n14"
+'Attribute ReImportFile.VB_ProcData.VB_Invoke_Func = " \n14"
 '
 ' Macro1 Macro
 '
 ' Only need this if data connection is broken?
 
 
-    Sheets("MageData").Select
+    'Sheets("MageData").Select
     Cells.ClearContents
     
     For Each myQT In ActiveSheet.QueryTables
@@ -83,7 +83,7 @@ Attribute ReImportFile.VB_ProcData.VB_Invoke_Func = " \n14"
     With ActiveSheet.QueryTables.Add(Connection:= _
         "TEXT;" & Filename _
         , Destination:=Range("A1"))
-        .Name = "temp_file"
+        .Name = "import_file"
         .FieldNames = True
         .RowNumbers = False
         .FillAdjacentFormulas = False
@@ -120,3 +120,19 @@ Function Parse(ParseString)
         End Select
 
 End Function
+
+Sub CreateDataConnection()
+' this creates a data connection with the best encoding for Magento Exports...
+    
+    ' ctrl + shift + o
+    
+    Dim fn As String
+    Dim tempFile As String
+    
+    'tempFile = "amazon_temp_file.txt"
+    fn = GetFileName(ActiveWorkbook.Path)
+    ReImportFile fn
+
+End Sub
+
+
